@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+    teir: frontend
+    environment: deployment
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: nginx
+      teir: frontend
+      environment: deployment
+  template:
+    metadata:
+      labels:
+        app: nginx
+        teir: frontend
+        environment: deployment
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:{{ .Values.deployment.imageVersion }}  #image version will be changing frequently
+        ports:
+        - containerPort: 80
